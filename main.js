@@ -10,7 +10,7 @@ client.on('ready', () => {
 });
 
 client.on('message', async message => {
-    if (message.content === '!popular-games') {
+    if (message.content === '!steam') {
         try {
             const response = await axios.get(steamApiUrl, { params: { key: steamApiKey } });
             // ここでSteamの人気ゲームのデータを取得し、整形します。
