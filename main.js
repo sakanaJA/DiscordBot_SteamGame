@@ -2,7 +2,9 @@ const Discord = require('discord.js');
 const axios = require('axios');
 const client = new Discord.Client();
 
+//TODO APIキーをenvより読み込むように要修正
 const steamApiKey = 'YOUR_STEAM_API_KEY'; // Steam APIキー
+
 const steamApiUrl = 'https://api.steampowered.com/ISteamApps/GetAppList/v2/'; // Steam API URL
 
 client.on('ready', () => {
