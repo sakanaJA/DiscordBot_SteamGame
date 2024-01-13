@@ -2,9 +2,6 @@ const Discord = require('discord.js');
 const axios = require('axios');
 const client = new Discord.Client();
 
-//TODO APIキーをenvより読み込むように要修正
-const steamApiKey = 'YOUR_STEAM_API_KEY'; // Steam APIキー
-
 const steamApiUrl = 'https://api.steampowered.com/ISteamApps/GetAppList/v2/'; // Steam API URL
 
 client.on('ready', () => {
@@ -14,7 +11,7 @@ client.on('ready', () => {
 client.on('message', async message => {
     if (message.content === '!steam') {
         try {
-            const response = await axios.get(steamApiUrl, { params: { key: steamApiKey } });
+            const response = await axios.get(steamApiUrl, { params: { key: process.env.TOKEN } });
             // ここでSteamの人気ゲームのデータを取得し、整形します。
             // Steam APIの応答構造に応じてコードを調整する必要があります。
             const games = response.data; // 仮のレスポンスデータ
