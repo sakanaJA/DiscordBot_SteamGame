@@ -1,20 +1,24 @@
 const Discord = require('discord.js');
 const axios = require('axios');
-const client = new Discord.Client();
+const { Client, Intents } = require('discord.js');
 
-const steamApiUrl = 'https://api.steampowered.com/ISteamApps/GetAppList/v2/'; // Steam API URL
+const client = new Client({
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
+});
+
+const steamApiUrl = 'https://api.steampowered.com/ISteamApps/GetAppList/v2/';
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('message', async message => {
+client.on('messageCreate', async message => {
     if (message.content === '!steam') {
         try {
-            const response = await axios.get(steamApiUrl, { params: { key: process.env.TOKEN } });
-            // ここでSteamの人気ゲームのデータを取得し、整形します。
+            const response = await axios.get(steamApiUrl, { params: { key: process.env.STEAM } });
             // Steam APIの応答構造に応じてコードを調整する必要があります。
-            const games = response.data; // 仮のレスポンスデータ
+            // ここでは、response.data.gamesを使用していますが、これは仮の例です。
+            const games = response.data.games; // 仮のレスポンスデータ構造
             let reply = 'Steamの人気ゲーム:\n';
             games.forEach(game => {
                 reply += `${game.name}\n`; // ゲーム名を追加
@@ -28,5 +32,3 @@ client.on('message', async message => {
 });
 
 client.login(process.env.TOKEN);
-
-
